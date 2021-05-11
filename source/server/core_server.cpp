@@ -9,6 +9,7 @@
 #include <nidcpower/nidcpower_library.h>
 #include <nidcpower/nidcpower_service.h>
 
+#include "daemonize.h"
 #include "server_configuration_parser.h"
 #include "server_security_configuration.h"
 #include "session_utilities_service.h"
@@ -97,14 +98,18 @@ static void RunServer(const std::string& config_file_path)
 
 int main(int argc, char** argv)
 {
-  if (argc > 2) {
+  if (argc > 3) {
     std::cerr << "\nUsage: "
-              << "ni_grpc_device_server <config-file-path>\n\n";
+              << "ni_grpc_device_server [--daemon] <config-file-path>\n\n";
     exit(EXIT_FAILURE);
   }
   std::string config_file_path;
   if (argc == 2) {
     config_file_path = argv[1];
+  }
+  else if(argc == 3 && std::string(argv[1]) == "--daemon") {
+    daemonize();
+    config_file_path = argv[2];
   }
   RunServer(config_file_path);
   return 0;
