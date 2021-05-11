@@ -4,8 +4,10 @@
 #include <signal.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <syslog.h>
 
 #include "../daemonize.h"
+#include "redirect.h"
 
 void daemonize()
 {
@@ -15,16 +17,19 @@ void daemonize()
   pid = fork();
 
   // An error occurred
-  if (pid < 0)
-  exit(EXIT_FAILURE);
+  if (pid < 0) {
+    exit(EXIT_FAILURE);
+  }
 
   // Success: Let the parent terminate
-  if (pid > 0)
-  exit(EXIT_SUCCESS);
+  if (pid > 0) {
+    exit(EXIT_SUCCESS);
+  }
 
   // On success: The child process becomes session leader
-  if (setsid() < 0)
-  exit(EXIT_FAILURE);
+  if (setsid() < 0) {
+    exit(EXIT_FAILURE);
+  }
 
   // Catch, ignore and handle signals
   signal(SIGCHLD, SIG_IGN);
@@ -54,4 +59,10 @@ void daemonize()
   for (x = sysconf(_SC_OPEN_MAX); x >= 0; x--) {
     close (x);
   }
+
+  // Open the log file
+  openlog("ni_grpc_device_server", LOG_PID, LOG_DAEMON);
+  tolog(&stderr, LOG_ERR);
+  tolog(&stdout, LOG_INFO);
+  atexit(closelog);
 }

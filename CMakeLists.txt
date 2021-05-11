@@ -177,7 +177,9 @@ foreach(api ${nidrivers})
 endforeach()
 
 if(CMAKE_SYSTEM_NAME STREQUAL Linux)
-  set(SOURCE_OS "source/server/linux/daemonize.c")
+  set(SOURCE_OS
+    "source/server/linux/daemonize.c"
+    "source/server/linux/redirect.c")
 else()
   set(SOURCE_OS "source/server/windows/daemonize.c")
 endif()

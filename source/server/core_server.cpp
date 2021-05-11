@@ -98,18 +98,18 @@ static void RunServer(const std::string& config_file_path)
 
 int main(int argc, char** argv)
 {
-  if (argc > 3) {
-    std::cerr << "\nUsage: "
-              << "ni_grpc_device_server [--daemon] <config-file-path>\n\n";
-    exit(EXIT_FAILURE);
-  }
   std::string config_file_path;
   if (argc == 2) {
     config_file_path = argv[1];
   }
-  else if(argc == 3 && std::string(argv[1]) == "--daemon") {
+  else if (argc == 3 && std::string(argv[1]) == "--daemon") {
     daemonize();
     config_file_path = argv[2];
+  }
+  else if (argc != 1) {
+    std::cerr << "\nUsage: "
+              << "ni_grpc_device_server [--daemon] [<config-file-path>]\n\n";
+    exit(EXIT_FAILURE);
   }
   RunServer(config_file_path);
   return 0;
