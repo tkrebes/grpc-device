@@ -676,7 +676,7 @@ class NiSyncDriver6683Test : public NiSyncDriverApiTest
 {
 public:
   NiSyncDriver6683Test() : NiSyncDriverApiTest() {}
-  const char* get_model_name() const override { return "NI PXI-6683H"; }
+  const char* get_model_name() const override { return "NI PXI-6683"; }
 };
 
 TEST_F(NiSyncDriver6674Test, RevisionQuery_ReturnsNonEmptyRevisions)
