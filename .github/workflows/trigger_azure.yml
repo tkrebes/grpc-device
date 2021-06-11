@@ -1,0 +1,21 @@
+name: Trigger Azure
+
+on:
+  push:
+    branches:
+      - main
+      - 'releases/**'
+
+jobs:
+  build-nilrt:
+    name: Invoke Azure Pipeline
+    runs-on: ubuntu-latest
+    steps:
+    - name: Azure Pipelines Action
+      uses: Azure/pipelines@master
+      with:
+        azure-devops-project-url: 'https://dev.azure.com/ni/DevCentral'
+        azure-pipeline-name: 'ni-central-grpc-device-ci'
+        azure-devops-token: ${{ secrets.AZURE_DEVOPS_TOKEN }}
+        azure-pipeline-variables:
+          grpcDeviceRunId: ${{ format(env.pipelineVariablesFormatString, github.run_id) }}
