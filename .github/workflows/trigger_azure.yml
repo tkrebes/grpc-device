@@ -16,5 +16,5 @@ jobs:
       uses: Azure/pipelines@v1
       with:
         azure-devops-project-url: 'https://dev.azure.com/ni/DevCentral'
-        azure-pipeline-name: 'ni-central-grpc-device-ci'
+        azure-pipeline-name: 'ni-central-grpc-pr'
         azure-devops-token: '${{ secrets.AZURE_DEVOPS_TOKEN }}'
