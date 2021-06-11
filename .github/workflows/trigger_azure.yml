@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - 'releases/**'
+      - '**'
 
 jobs:
   build-nilrt:
@@ -18,4 +19,4 @@ jobs:
         azure-pipeline-name: 'ni-central-grpc-device-ci'
         azure-devops-token: ${{ secrets.AZURE_DEVOPS_TOKEN }}
         azure-pipeline-variables:
-          grpcDeviceRunId: ${{ format(env.pipelineVariablesFormatString, github.run_id) }}
+          grpcDeviceRunId: ${{ github.run_id }}
