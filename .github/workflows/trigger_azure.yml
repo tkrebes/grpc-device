@@ -17,5 +17,5 @@ jobs:
       with:
         azure-devops-project-url: 'https://dev.azure.com/ni/DevCentral'
         azure-pipeline-name: 'ni-central-grpc-device-ci'
-        azure-devops-token: ${{ secrets.AZURE_DEVOPS_TOKEN }}
+        azure-devops-token: '${{ secrets.AZURE_DEVOPS_TOKEN }}'
         azure-pipeline-variables: '{ "grpcDeviceRunId": "${{ github.run_id }}" }'
